@@ -1,7 +1,0 @@
-const checkArray = () => {
-
-}
-
-export {
-    checkArray
-}

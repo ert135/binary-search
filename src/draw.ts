@@ -1,12 +1,9 @@
-//import typescirpt types. 
 ///<reference path='../p5-global-mode.d.ts'/>
 
-//import grid
-import Grid from './grid';
-import MouseHover from './mouseHover';
-import Cell from './cell';
+import Node from './Node';
+import Tree from './Tree';
 
-//extend existing window property, we have to put the draw and setup functinos of the global window object for p5 to work in global mode
+//extend existing window property, we have to put the draw and setup functions of the global window object for p5 to work in global mode
 declare global {
     interface Window { 
         setup: any;
@@ -19,32 +16,24 @@ declare global {
     }
 }
 
-let grid: Grid;
-let size = 800;
-let started = false;
-let mouseHover: MouseHover = null;
+let tree : Tree;
+let n: Node
 
 let setup = function() {
-    createCanvas(size, size);
-    grid = new Grid(30,30, size);
-    mouseHover = new MouseHover();
+    tree = new Tree();
+    tree.add(5);
+    tree.add(6);
+    tree.add(12);
+    tree.add(11);
+    tree.add(3);
+    console.log(tree);
+    tree.traverse();
+    let result = tree.search(3);
+    console.log('Result is ', result);
 }
 
 let draw = function() {
-    mouseHover.isIntersectingWithBox(grid.getGrid());
-    if (grid.hasNoSolution() === false) {
-        grid.drawGrid();
-        if(window.started === true) {
-            grid.drawOpenSet();
-            grid.drawClosedSet();
-            grid.step();
-            grid.drawPath();
-        }
-    } else {
-        //perform stop procedure
-    }
 }
 
 window.setup = setup;
 window.draw = draw;
-window.started = started;

@@ -1,7 +1,7 @@
 {
-  "name": "tree",
+  "name": "binarysearch",
   "version": "1.0.0",
-  "description": "Drawing trees",
+  "description": "Binary Search",
   "main": "index.js",
   "scripts": {
     "test": "grunt test",
