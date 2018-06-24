@@ -8,7 +8,7 @@ export default class Tree {
     }
 
     public add(number: number) : void {
-        let n = new Node(number);
+        let n = new Node(number, new p5.Vector(window.innerWidth/2, 30));
         if(this.root === null) {
             this.root = n;
         } else {
@@ -22,5 +22,9 @@ export default class Tree {
 
     public search(value: number): Node {
         return this.root.search(value)
+    }
+
+    public draw() {
+        this.root.draw();
     }
 }

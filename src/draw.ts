@@ -5,7 +5,7 @@ import Tree from './Tree';
 
 //extend existing window property, we have to put the draw and setup functions of the global window object for p5 to work in global mode
 declare global {
-    interface Window { 
+    interface Window {
         setup: any;
         draw: any;
         mousePressed: any;
@@ -30,9 +30,11 @@ let setup = function() {
     tree.traverse();
     let result = tree.search(3);
     console.log('Result is ', result);
+    createCanvas(window.innerWidth, window.innerHeight);
 }
 
 let draw = function() {
+    tree.draw();
 }
 
 window.setup = setup;
