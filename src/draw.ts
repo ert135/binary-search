@@ -23,6 +23,7 @@ let setup = function() {
     tree = new Tree();
     tree.add(5);
     tree.add(6);
+    tree.add(1);
     tree.add(12);
     tree.add(11);
     tree.add(3);
