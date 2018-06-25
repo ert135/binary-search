@@ -32,10 +32,10 @@ export default class Node {
     }
 
     public visit(): void {
-        if(this.left) {
+        if (this.left) {
             this.left.visit();
         }
-        if(this.right){
+        if (this.right) {
             this.right.visit();
         }
     }
@@ -52,7 +52,7 @@ export default class Node {
         return null;
     }
 
-    public draw() {
+    public draw(): void {
         textSize(32);
         text(this.value.toString(), this.position.x, this.position.y);
         if(this.left) {
@@ -61,5 +61,12 @@ export default class Node {
         if(this.right){
             this.right.draw();
         }
+    }
+
+    public getDepth(node: Node): number {
+        if(!node.left && !node.right) {
+            return -1;
+        }
+        return 1 + max([this.getDepth(node.left), this.getDepth(node.right)]);
     }
 }

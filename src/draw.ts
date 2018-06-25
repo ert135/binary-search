@@ -21,17 +21,15 @@ let n: Node
 
 let setup = function() {
     tree = new Tree();
-    tree.add(5);
-    tree.add(6);
-    tree.add(1);
-    tree.add(12);
-    tree.add(11);
-    tree.add(3);
+    for(var i = 0; i < 100; i++){
+        tree.add(Math.floor((Math.random() * 100) + 1))
+    }
     console.log(tree);
     tree.traverse();
     let result = tree.search(3);
     console.log('Result is ', result);
     createCanvas(window.innerWidth, window.innerHeight);
+    tree.getDepth()
 }
 
 let draw = function() {

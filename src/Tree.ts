@@ -27,4 +27,9 @@ export default class Tree {
     public draw() {
         this.root.draw();
     }
+
+    public getDepth() {
+        console.log('height is ', this.root.getDepth(this.root))
+        this.root.getDepth(this.root);
+    }
 }
