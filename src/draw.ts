@@ -18,10 +18,11 @@ declare global {
 
 let tree : Tree;
 let n: Node
+const numberSeperationFactor = 20;
 
 let setup = function() {
-    tree = new Tree();
-    for(var i = 0; i < 100; i++){
+    tree = new Tree(numberSeperationFactor);
+    for(var i = 0; i < 20; i++){
         tree.add(Math.floor((Math.random() * 100) + 1))
     }
     console.log(tree);
@@ -29,11 +30,11 @@ let setup = function() {
     let result = tree.search(3);
     console.log('Result is ', result);
     createCanvas(window.innerWidth, window.innerHeight);
-    tree.getDepth()
+    console.log('treedepth is ', tree.getDepth());
 }
 
 let draw = function() {
-    tree.draw();
+    tree.draw(tree.getDepth());
 }
 
 window.setup = setup;

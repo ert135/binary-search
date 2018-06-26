@@ -1,9 +1,12 @@
+import * as R from 'ramda';
+
 export default class Node {
 
     private left: Node;
     private right: Node;
     private value: number;
     private position: p5.Vector;
+    private parent: Node;
 
     constructor(value: number, position: p5.Vector) {
         this.value = value;
@@ -14,20 +17,19 @@ export default class Node {
         this.position = vector;
     }
 
-    //Recursion
-    public addNode(n: Node): void {
+    public addNode(n: Node, seperationFactor: number): void {
+        this.parent = n;
+
         if(n.value < this.value) {
-            n.setPosition(new p5.Vector(this.position.x-20, this.position.y + 30))
             if(!this.left) {
                 this.left = n;
             }
-            this.left.addNode(n);
+            this.left.addNode(n, seperationFactor+30);
         } else if (n.value > this.value) {
-            n.setPosition(new p5.Vector(this.position.x+20, this.position.y + 30))
             if(!this.right) {
                 this.right = n;
             }
-            this.right.addNode(n)
+            this.right.addNode(n, seperationFactor+30)
         }
     }
 
@@ -63,10 +65,26 @@ export default class Node {
         }
     }
 
-    public getDepth(node: Node): number {
-        if(!node.left && !node.right) {
-            return -1;
+    public getDepth(node: Node, number: number): any {
+        if(!node) {
+            return number
         }
-        return 1 + max([this.getDepth(node.left), this.getDepth(node.right)]);
+        // if(!node.left && !node.right) {
+        //     return -1;
+        // }
+        // console.log('value is ', node.value, {
+        //     left: node.left,
+        //     right: node.right
+
+        // })
+        return max([this.getDepth(node.left, number+1), this.getDepth(node.right, number+1)])
+    }
+
+    private drawLevel(nodes: Array<Node>) {
+
+    }
+
+    private drawInOrder(nodes: Array<Node>) {
+        return R.sortBy(R.prop('silver'), array);
     }
 }

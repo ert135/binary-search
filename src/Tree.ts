@@ -2,9 +2,10 @@ import Node from './Node';
 
 export default class Tree {
     private root: Node = null;
+    private numberSeperationFactor: number;
 
-    constructor() {
-
+    constructor(numberSeperationFactor: number) {
+        this.numberSeperationFactor = numberSeperationFactor;
     }
 
     public add(number: number) : void {
@@ -12,7 +13,7 @@ export default class Tree {
         if(this.root === null) {
             this.root = n;
         } else {
-            this.root.addNode(n);
+            this.root.addNode(n, this.numberSeperationFactor);
         }
     }
 
@@ -24,12 +25,11 @@ export default class Tree {
         return this.root.search(value)
     }
 
-    public draw() {
+    public draw(treeHeight: number) {
         this.root.draw();
     }
 
     public getDepth() {
-        console.log('height is ', this.root.getDepth(this.root))
-        this.root.getDepth(this.root);
+        return this.root.getDepth(this.root, 0);
     }
 }
