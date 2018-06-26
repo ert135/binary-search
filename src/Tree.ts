@@ -1,3 +1,5 @@
+import * as R from 'ramda';
+
 import Node from './Node';
 
 export default class Tree {
@@ -13,7 +15,7 @@ export default class Tree {
         if(this.root === null) {
             this.root = n;
         } else {
-            this.root.addNode(n, this.numberSeperationFactor);
+            this.root.addNode(n, this.numberSeperationFactor, 1);
         }
     }
 
@@ -31,5 +33,13 @@ export default class Tree {
 
     public getDepth() {
         return this.root.getDepth(this.root, 0);
+    }
+
+    public getNodeArray() : Array<Node> {
+        return this.root.getNodeArray(this.root, []);
+    }
+
+    public sortTreeByLevel(nodes: Array<Node>) {
+        return R.sortBy(R.prop('level'), nodes);
     }
 }

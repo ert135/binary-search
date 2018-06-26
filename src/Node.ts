@@ -7,6 +7,7 @@ export default class Node {
     private value: number;
     private position: p5.Vector;
     private parent: Node;
+    private level: number;
 
     constructor(value: number, position: p5.Vector) {
         this.value = value;
@@ -17,19 +18,20 @@ export default class Node {
         this.position = vector;
     }
 
-    public addNode(n: Node, seperationFactor: number): void {
+    public addNode(n: Node, seperationFactor: number, level: number): void {
         this.parent = n;
+        n.level = level
 
         if(n.value < this.value) {
             if(!this.left) {
                 this.left = n;
             }
-            this.left.addNode(n, seperationFactor+30);
+            this.left.addNode(n, seperationFactor+30, level+1);
         } else if (n.value > this.value) {
             if(!this.right) {
                 this.right = n;
             }
-            this.right.addNode(n, seperationFactor+30)
+            this.right.addNode(n, seperationFactor+30, level+1)
         }
     }
 
@@ -69,22 +71,28 @@ export default class Node {
         if(!node) {
             return number
         }
-        // if(!node.left && !node.right) {
-        //     return -1;
-        // }
-        // console.log('value is ', node.value, {
-        //     left: node.left,
-        //     right: node.right
-
-        // })
         return max([this.getDepth(node.left, number+1), this.getDepth(node.right, number+1)])
+    }
+
+    public getNodeArray(node: Node, nodeArray: Array<any>): Array<Node> {
+        nodeArray.push(node);
+        if (node.left) {
+            console.log('Here is ', node.left.getNodeArray(node.left, nodeArray));
+            node.left.getNodeArray(node.left, nodeArray);
+        }
+        if (node.right) {
+            console.log('Right is ', node.right.getNodeArray(node.right, nodeArray))
+            node.right.getNodeArray(node.right, nodeArray);
+        }
+
+        // return nodeArray
+    }
+
+    public drawInOrder(nodes: Array<Node>) {
+        return R.sortBy(R.prop('level'), nodes);
     }
 
     private drawLevel(nodes: Array<Node>) {
 
-    }
-
-    private drawInOrder(nodes: Array<Node>) {
-        return R.sortBy(R.prop('silver'), array);
     }
 }

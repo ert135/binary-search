@@ -22,8 +22,8 @@ const numberSeperationFactor = 20;
 
 let setup = function() {
     tree = new Tree(numberSeperationFactor);
-    for(var i = 0; i < 20; i++){
-        tree.add(Math.floor((Math.random() * 100) + 1))
+    for(var i = 0; i < 10; i++){
+        tree.add(Math.floor((Math.random() * 1000) + 1))
     }
     console.log(tree);
     tree.traverse();
@@ -31,6 +31,7 @@ let setup = function() {
     console.log('Result is ', result);
     createCanvas(window.innerWidth, window.innerHeight);
     console.log('treedepth is ', tree.getDepth());
+    console.log('Node array is ', tree.sortTreeByLevel(tree.getNodeArray()));
 }
 
 let draw = function() {
