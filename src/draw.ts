@@ -22,16 +22,20 @@ const numberSeperationFactor = 20;
 
 let setup = function() {
     tree = new Tree(numberSeperationFactor);
-    for(var i = 0; i < 10; i++){
+    tree.add(500);
+    tree.getDepth();
+    const depth = tree.getDepth();
+    for(var i = 0; i < 15; i++){
         tree.add(Math.floor((Math.random() * 1000) + 1))
     }
     console.log(tree);
     tree.traverse();
     let result = tree.search(3);
     console.log('Result is ', result);
-    createCanvas(window.innerWidth, window.innerHeight);
+    createCanvas(3000, window.innerHeight);
     console.log('treedepth is ', tree.getDepth());
     console.log('Node array is ', tree.sortTreeByLevel(tree.getNodeArray()));
+    console.log('initial seperation factor is ', tree.getInitialSeperationFactor());
 }
 
 let draw = function() {

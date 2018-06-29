@@ -7,7 +7,7 @@ export default class Node {
     private value: number;
     private position: p5.Vector;
     private parent: Node;
-    private level: number;
+    public level: number;
 
     constructor(value: number, position: p5.Vector) {
         this.value = value;
@@ -19,19 +19,27 @@ export default class Node {
     }
 
     public addNode(n: Node, seperationFactor: number, level: number): void {
-        this.parent = n;
-        n.level = level
-
+        level = level + 1;
+        console.log('Seperation factor being passed is ', seperationFactor, level);
+        // console.trace()
         if(n.value < this.value) {
             if(!this.left) {
+                n.level = level;
+                n.parent = this;
                 this.left = n;
+                this.left.position = new p5.Vector(this.position.x - seperationFactor, this.position.y + 100)
+                return;
             }
-            this.left.addNode(n, seperationFactor+30, level+1);
+            this.left.addNode(n, seperationFactor-(seperationFactor/level), level);
         } else if (n.value > this.value) {
             if(!this.right) {
+                n.level = level;
+                n.parent = this;
                 this.right = n;
+                this.right.position = new p5.Vector(this.position.x + seperationFactor, this.position.y + 100)
+                return;
             }
-            this.right.addNode(n, seperationFactor+30, level+1)
+            this.right.addNode(n, seperationFactor-(seperationFactor/level), level)
         }
     }
 
@@ -60,14 +68,20 @@ export default class Node {
         textSize(32);
         text(this.value.toString(), this.position.x, this.position.y);
         if(this.left) {
+            if(this.left.parent){
+                line(this.position.x, this.position.y, this.left.position.x, this.left.position.y)
+            }
             this.left.draw();
         }
-        if(this.right){
+        if(this.right) {
+            if(this.right.parent) {
+                line(this.position.x, this.position.y, this.right.position.x, this.right.position.y)
+            }
             this.right.draw();
         }
     }
 
-    public getDepth(node: Node, number: number): any {
+    public getDepth(node: Node, number: number): number {
         if(!node) {
             return number
         }
@@ -77,15 +91,13 @@ export default class Node {
     public getNodeArray(node: Node, nodeArray: Array<any>): Array<Node> {
         nodeArray.push(node);
         if (node.left) {
-            console.log('Here is ', node.left.getNodeArray(node.left, nodeArray));
             node.left.getNodeArray(node.left, nodeArray);
         }
         if (node.right) {
-            console.log('Right is ', node.right.getNodeArray(node.right, nodeArray))
             node.right.getNodeArray(node.right, nodeArray);
         }
 
-        // return nodeArray
+        return nodeArray;
     }
 
     public drawInOrder(nodes: Array<Node>) {

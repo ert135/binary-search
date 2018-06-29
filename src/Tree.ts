@@ -14,8 +14,9 @@ export default class Tree {
         let n = new Node(number, new p5.Vector(window.innerWidth/2, 30));
         if(this.root === null) {
             this.root = n;
+            this.root.level = 1;
         } else {
-            this.root.addNode(n, this.numberSeperationFactor, 1);
+            this.root.addNode(n, ((10 * 50) * 2), 1);
         }
     }
 
@@ -25,6 +26,10 @@ export default class Tree {
 
     public search(value: number): Node {
         return this.root.search(value)
+    }
+
+    public getInitialSeperationFactor() : number {
+        return (this.getDepth() * 50) * 2;
     }
 
     public draw(treeHeight: number) {
