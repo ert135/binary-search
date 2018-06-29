@@ -32,7 +32,7 @@ export default class Tree {
         return (this.getDepth() * 50) * 2;
     }
 
-    public draw(treeHeight: number) {
+    public draw() {
         this.root.draw();
     }
 
@@ -46,5 +46,9 @@ export default class Tree {
 
     public sortTreeByLevel(nodes: Array<Node>) {
         return R.sortBy(R.prop('level'), nodes);
+    }
+
+    public setPositions(depth: number) : void {
+        this.root.setPositions(this.root, ((depth * 60) * 2), 1);
     }
 }

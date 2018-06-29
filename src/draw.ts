@@ -25,13 +25,11 @@ let setup = function() {
     tree.add(500);
     tree.getDepth();
     const depth = tree.getDepth();
-    for(var i = 0; i < 15; i++){
-        tree.add(Math.floor((Math.random() * 1000) + 1))
+    for(var i = 0; i < 150; i++){
+        tree.add(Math.floor((Math.random() * 10000) + 1))
     }
+    tree.setPositions(tree.getDepth());
     console.log(tree);
-    tree.traverse();
-    let result = tree.search(3);
-    console.log('Result is ', result);
     createCanvas(3000, window.innerHeight);
     console.log('treedepth is ', tree.getDepth());
     console.log('Node array is ', tree.sortTreeByLevel(tree.getNodeArray()));
@@ -39,7 +37,7 @@ let setup = function() {
 }
 
 let draw = function() {
-    tree.draw(tree.getDepth());
+    tree.draw();
 }
 
 window.setup = setup;

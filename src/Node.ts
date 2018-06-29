@@ -20,14 +20,12 @@ export default class Node {
 
     public addNode(n: Node, seperationFactor: number, level: number): void {
         level = level + 1;
-        console.log('Seperation factor being passed is ', seperationFactor, level);
         // console.trace()
         if(n.value < this.value) {
             if(!this.left) {
                 n.level = level;
                 n.parent = this;
                 this.left = n;
-                this.left.position = new p5.Vector(this.position.x - seperationFactor, this.position.y + 100)
                 return;
             }
             this.left.addNode(n, seperationFactor-(seperationFactor/level), level);
@@ -36,10 +34,22 @@ export default class Node {
                 n.level = level;
                 n.parent = this;
                 this.right = n;
-                this.right.position = new p5.Vector(this.position.x + seperationFactor, this.position.y + 100)
                 return;
             }
             this.right.addNode(n, seperationFactor-(seperationFactor/level), level)
+        }
+    }
+
+    public setPositions(n: Node, seperationFactor: number, level: number) : void {
+        console.log('Node is , node', n);
+        level = level + 1;
+        if(this.left) {
+            this.left.position = new p5.Vector(this.position.x - seperationFactor, this.position.y + 100);
+            this.left.setPositions(n, seperationFactor-(seperationFactor/level), level);
+        }
+        if(this.right) {
+            this.right.position = new p5.Vector(this.position.x + seperationFactor, this.position.y + 100);
+            this.right.setPositions(n, seperationFactor-(seperationFactor/level), level);
         }
     }
 
@@ -102,9 +112,5 @@ export default class Node {
 
     public drawInOrder(nodes: Array<Node>) {
         return R.sortBy(R.prop('level'), nodes);
-    }
-
-    private drawLevel(nodes: Array<Node>) {
-
     }
 }
